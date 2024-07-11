@@ -1,0 +1,23 @@
+const int rainSensorPin = 2;  // Pin connected to the rain sensor
+const int relayPin = 8;       // Pin connected to the relay
+
+void setup() {
+  pinMode(rainSensorPin, INPUT);
+  pinMode(relayPin, OUTPUT);
+  digitalWrite(relayPin, LOW);  // Initially turn off the relay
+  Serial.begin(9600);
+}
+
+void loop() {
+  int rainSensorValue = digitalRead(rainSensorPin);
+
+  if (rainSensorValue == LOW) {  // Adjust according to your sensor's output when it detects rain
+    digitalWrite(relayPin, HIGH);  // Turn on the relay (and thus the wiper motor)
+    Serial.println("Rain detected! Wiper ON");
+  } else {
+    digitalWrite(relayPin, LOW);   // Turn off the relay (and thus the wiper motor)
+    Serial.println("No rain. Wiper OFF");
+  }
+
+  delay(1000);  // Wait for a second before checking again
+}
